@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Forensic Toolkit</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <p class="badge">Hybrid Audio Intelligence</p>
+        <h1>Audio Forensic Toolkit</h1>
+        <p class="subtitle">
+          Drag and drop an audio file to score both <strong>Digital Integrity</strong>
+          and <strong>Biological Signature</strong> in one report.
+        </p>
+      </header>
+
+      <section class="card uploader">
+        <label id="dropzone" class="dropzone" for="audioInput">
+          <input id="audioInput" type="file" accept=".wav,audio/wav" hidden />
+          <div class="drop-content">
+            <h2>Drop WAV file here</h2>
+            <p>or click to browse · max 20MB</p>
+          </div>
+        </label>
+
+        <div class="endpoint-row">
+          <label for="apiBaseInput">API Base URL</label>
+          <input id="apiBaseInput" type="url" placeholder="https://your-api.example.com" />
+          <button id="saveApiBaseBtn" class="btn secondary" type="button">Save</button>
+        </div>
+        <p id="apiHint" class="hint"></p>
+
+        <div class="actions">
+          <button id="analyzeBtn" class="btn" disabled>Analyze Audio</button>
+          <p id="filename" class="filename">No file selected</p>
+        </div>
+      </section>
+
+      <section id="resultCard" class="card result hidden">
+        <h2>Forensic Report</h2>
+        <div class="risk-wrap">
+          <div class="risk-meter">
+            <div id="riskBar" class="risk-bar"></div>
+          </div>
+          <p id="riskLabel" class="risk-label">Overall Fraud Risk: --</p>
+        </div>
+        <div class="grid">
+          <article>
+            <h3>Digital Integrity</h3>
+            <ul id="digitalList"></ul>
+          </article>
+          <article>
+            <h3>Biological Signature</h3>
+            <ul id="bioList"></ul>
+          </article>
+        </div>
+        <details>
+          <summary>Raw JSON</summary>
+          <pre id="rawJson"></pre>
+        </details>
+      </section>
+
+      <section id="errorCard" class="card error hidden"></section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
