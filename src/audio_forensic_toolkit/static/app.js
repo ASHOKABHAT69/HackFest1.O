@@ -9,55 +9,8 @@ const riskLabel = document.getElementById('riskLabel');
 const digitalList = document.getElementById('digitalList');
 const bioList = document.getElementById('bioList');
 const rawJson = document.getElementById('rawJson');
-const apiBaseInput = document.getElementById('apiBaseInput');
-const saveApiBaseBtn = document.getElementById('saveApiBaseBtn');
-const apiHint = document.getElementById('apiHint');
 
 let selectedFile = null;
-
-function normalizeApiBase(url) {
-  const trimmed = (url || '').trim();
-  if (!trimmed) return '';
-  return trimmed.replace(/\/$/, '');
-}
-
-function getApiBase() {
-  const fromQuery = new URLSearchParams(window.location.search).get('api');
-  if (fromQuery) {
-    return normalizeApiBase(fromQuery);
-  }
-
-  const fromStorage = localStorage.getItem('aft_api_base');
-  if (fromStorage) {
-    return normalizeApiBase(fromStorage);
-  }
-
-  return normalizeApiBase(window.AFT_API_BASE || '');
-}
-
-function setApiHint(base) {
-  if (!base) {
-    apiHint.textContent = 'Using same-origin API (default). For GitHub Pages set your hosted API URL.';
-  } else {
-    apiHint.textContent = `Using API endpoint: ${base}`;
-  }
-}
-
-function apiUrl(path) {
-  const base = getApiBase();
-  return base ? `${base}${path}` : path;
-}
-
-function saveApiBase() {
-  const normalized = normalizeApiBase(apiBaseInput.value);
-  localStorage.setItem('aft_api_base', normalized);
-  apiBaseInput.value = normalized;
-  setApiHint(normalized);
-}
-
-apiBaseInput.value = getApiBase();
-setApiHint(getApiBase());
-saveApiBaseBtn.addEventListener('click', saveApiBase);
 
 const preventDefaults = (event) => {
   event.preventDefault();
@@ -99,7 +52,7 @@ analyzeBtn.addEventListener('click', async () => {
   formData.append('audio_file', selectedFile);
 
   try {
-    const response = await fetch(apiUrl('/api/analyze'), {
+    const response = await fetch('/api/analyze', {
       method: 'POST',
       body: formData,
     });
@@ -111,7 +64,7 @@ analyzeBtn.addEventListener('click', async () => {
 
     renderReport(data);
   } catch (err) {
-    showError(err.message || 'Analysis failed. If hosted on GitHub Pages, configure API Base URL.');
+    showError(err.message);
   } finally {
     analyzeBtn.disabled = false;
     analyzeBtn.textContent = 'Analyze Audio';

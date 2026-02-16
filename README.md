@@ -13,9 +13,9 @@ It combines:
 
 Then outputs a unified fraud-risk score for fast triage.
 
-## ✨ Drag-and-Drop UI
+## ✨ New: Drag-and-Drop UI
 
-You can use the toolkit through a visual web interface:
+You can now use the toolkit through a visual web interface:
 
 - Drag and drop a `.wav` file
 - Click **Analyze Audio**
@@ -23,31 +23,6 @@ You can use the toolkit through a visual web interface:
 - Expand to inspect raw JSON output
 
 This gives non-technical users a practical workflow without command-line usage.
-
-## GitHub Pages Hosting (Supported)
-
-Yes — this project is now hostable on **GitHub Pages** without removing current features.
-
-How it works:
-- GitHub Pages hosts the static UI from `docs/`.
-- Analysis still runs on the existing Python backend (`audio-forensics-ui`) hosted elsewhere (Render, Fly.io, Railway, VM, etc.).
-- In the UI, set **API Base URL** to your hosted backend (for example: `https://your-api.example.com`).
-
-> Note: GitHub Pages cannot run Python server code directly, so the backend must be deployed separately.
-
-### Deploy UI to GitHub Pages
-
-1. Push repository to GitHub.
-2. In **Settings → Pages**, choose **Deploy from branch**.
-3. Select your branch and `/docs` folder.
-4. Open your Pages URL.
-5. Enter your backend URL into **API Base URL** and click **Save**.
-
-The setting is stored in browser local storage. You can also set it using query params:
-
-```text
-https://<user>.github.io/<repo>/?api=https://your-api.example.com
-```
 
 ## Features
 
@@ -80,14 +55,10 @@ src/audio_forensic_toolkit/
   cli.py         # Command-line entrypoint
   webapp.py      # Built-in stdlib HTTP UI backend
   templates/
-    index.html   # Local server UI template
+    index.html   # Drag-and-drop UI
   static/
     styles.css
     app.js
-docs/
-  index.html     # GitHub Pages static UI
-  styles.css
-  app.js
 tests/
   test_analyzer.py
   test_webapp.py
@@ -101,7 +72,7 @@ tests/
 python -m pip install -e .
 ```
 
-### 2) Launch local visual UI (recommended for local/dev)
+### 2) Launch visual UI (recommended)
 
 ```bash
 audio-forensics-ui
