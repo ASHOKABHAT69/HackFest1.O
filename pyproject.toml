@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audio-forensic-toolkit"
+version = "0.2.0"
+description = "Hybrid voice biological + digital integrity forensic analyzer"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.scripts]
+audio-forensics = "audio_forensic_toolkit.cli:main"
+audio-forensics-ui = "audio_forensic_toolkit.webapp:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+audio_forensic_toolkit = ["templates/*.html", "static/*.css", "static/*.js"]
